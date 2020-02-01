@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -36,9 +37,47 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
+                //get usage
+                String url = "http://122.51.211.211:80/api";
+                Request request = new Request.Builder().url(url).get().build();
+
+                final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        .connectTimeout(5, TimeUnit.SECONDS) // 设置连接超时时间
+                        .readTimeout(5, TimeUnit.SECONDS) // 设置读取超时时间
+                        .build();
+
+                final short maxLoadTimes = 2;
+
+                Call call = okHttpClient.newCall(request);
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Log.e(TAG, "onFailure: " + e.getMessage());
+                        if(e instanceof SocketTimeoutException && serversLoadTimes < maxLoadTimes) // 如果超时并未超过指定次数，则重新连接
+                        {
+                            serversLoadTimes++;
+                            Log.e(TAG, "Reconnect: " + serversLoadTimes + " times");
+                            okHttpClient.newCall(call.request()).enqueue(this);
+                        }else {
+                            e.printStackTrace();
+                        }
+                        text01.setText("Message Sent Failed");
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String result = response.body().string();
+                        text01.setText(result);
+                        Log.d("result",result);
+                    }
+                });
+
+                // post usage
+                /*
                 MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
                 String requestBody = "Sent from Mi8";
-                Request request = new Request.Builder().url("http://122.51.211.211")
+                Request request = new Request.Builder().url("http://122.51.211.211/api")
                         .post(RequestBody.create(mediaType, requestBody)).build();
 
                 final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -73,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("result",result);
                     }
                 });
-
+                */
             }
 
         });
