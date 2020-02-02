@@ -33,5 +33,21 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/mario_anim"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="500dp"
+            />
+
+    </RelativeLayout>>
 
 </android.support.constraint.ConstraintLayout>
