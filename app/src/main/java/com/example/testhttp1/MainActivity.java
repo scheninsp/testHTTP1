@@ -1,5 +1,6 @@
 package com.example.testhttp1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -140,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
 
         });
+
+
+
+
     }
 
     public boolean onTouch(View view, MotionEvent event){
@@ -171,5 +176,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         //刷新界面
         relativeLayout.invalidate();
         return true;
+    }
+
+    public void skip(View v){
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this, SecondActivity.class);
+        startActivity(intent);
     }
 }
