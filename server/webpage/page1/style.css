@@ -22,3 +22,24 @@
   border: 0px;
   background: url("./mario2.gif") no-repeat;  //在这里可以进行更改
 }
+
+
+#footer {
+		height: 40px;
+		line-height: 40px;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+		background: #C0C0C0;
+		color: #000000;
+		font-family: Arial;
+		font-size: 12px;
+		letter-spacing: 1px;
+	}
+
+.content {
+	height: 1800px;
+	width: 100%;
+	text-align: center;
+}
