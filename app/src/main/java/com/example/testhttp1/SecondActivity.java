@@ -68,7 +68,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             mSocket = webSocket;
             String openid = "1";
             //连接成功后，发送登录信息
-            String message = "{\"type\":\"login\",\"user_id\":\""+openid+"\"}";
+            String message = "request to connect";
             mSocket.send(message);
             output("连接成功！");
 
@@ -85,14 +85,14 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             super.onMessage(webSocket, text);
             output("receive text:" + text);
             //收到服务器端发送来的信息后，每隔25秒发送一次心跳包
-            final String message = "{\"type\":\"heartbeat\",\"user_id\":\"heartbeat\"}";
+            final String message = "pos x:10 y:20";
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     mSocket.send(message);
                 }
-            },25000);
+            },1000);
         }
 
         @Override
